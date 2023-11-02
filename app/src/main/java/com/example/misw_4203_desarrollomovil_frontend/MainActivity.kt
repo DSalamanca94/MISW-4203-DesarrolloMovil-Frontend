@@ -17,33 +17,19 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.example.misw_4203_desarrollomovil_frontend.ui.theme.MISW4203DesarrolloMovilFrontendTheme
 import androidx.compose.ui.unit.dp
 import androidx.compose.foundation.layout.Arrangement
+import com.example.misw_4203_desarrollomovil_frontend.navigation.AppNavigation
+import com.example.misw_4203_desarrollomovil_frontend.screens.HomeScreen
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
             MISW4203DesarrolloMovilFrontendTheme {
-                Column(
-                    modifier = Modifier.fillMaxSize(),
-                    verticalArrangement = Arrangement.Center,
-                    horizontalAlignment = androidx.compose.ui.Alignment.CenterHorizontally, // Centra el contenido horizontalmente
-                ) {
-                    ArtistButton()
+                Surface {
+                    AppNavigation()
                 }
-
             }
         }
     }
 }
-@Composable
-fun ArtistButton() {
-    Button(
-        onClick = {
-            // Aquí puedes definir el comportamiento que deseas cuando se haga clic en el botón "Artista".
-            // Por ejemplo, puedes navegar a otra pantalla o realizar alguna acción específica.
-        },
-        modifier = Modifier.padding(8.dp)
-    ) {
-        Text(text = "Artistas")
-    }
-}
+
