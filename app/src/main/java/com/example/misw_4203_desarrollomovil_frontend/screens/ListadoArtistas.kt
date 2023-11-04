@@ -28,21 +28,24 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.misw_4203_desarrollomovil_frontend.Musicians
 import com.example.misw_4203_desarrollomovil_frontend.MusiciansViewModel
-/*
+
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun ListadoArtistas(navController: NavController) {
+fun ListadoArtistasNav(navController: NavController) {
     Scaffold(
         topBar = {
             TopAppBar({ Text(text = "Listado Artistas") }, navigationIcon = {Icon(imageVector = Icons.Default.ArrowBack, contentDescription = "Arrow Back", modifier = Modifier.clickable { navController.popBackStack() })})
         },
         content = {
-            BodyContent(navController);
         }
     )
-}*/
+}
 @Composable
-fun ListadoArtistas(listaMusicians: ArrayList<Musicians>, viewModel: MusiciansViewModel){
+fun ListadoArtistas(
+    listaMusicians: ArrayList<Musicians>,
+    viewModel: MusiciansViewModel,
+    navController: NavController
+){
     var id by remember { mutableStateOf("") }
     var nombre by remember { mutableStateOf("") }
 
@@ -65,9 +68,7 @@ fun ListadoArtistas(listaMusicians: ArrayList<Musicians>, viewModel: MusiciansVi
                         musician = musician,
                         funIdMusician = {id = it},
                         funNombre = { nombre = it },
-                        onClick = {
-                            navController.navigate("musicianDetail/${musician.id}")
-                        }
+                        navController = navController
                     )
                 }
             }
@@ -75,6 +76,7 @@ fun ListadoArtistas(listaMusicians: ArrayList<Musicians>, viewModel: MusiciansVi
     }
 }
 
+/*
 @Composable
 fun BodyContent(navController: NavController) {
     Column(
@@ -84,4 +86,4 @@ fun BodyContent(navController: NavController) {
     ) {
         Text(text = "Esto es un artista")
     }
-}
+}*/

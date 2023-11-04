@@ -1,5 +1,6 @@
 package com.example.misw_4203_desarrollomovil_frontend.screens
 
+import androidx.activity.viewModels
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -26,6 +27,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 import com.example.misw_4203_desarrollomovil_frontend.Musicians
 import com.example.misw_4203_desarrollomovil_frontend.MusiciansViewModel
 /*
@@ -42,7 +44,7 @@ fun ListadoArtistas(navController: NavController) {
     )
 }*/
 @Composable
-fun DetalleArtistas(listaMusicians: ArrayList<Musicians>, viewModel: MusiciansViewModel){
+fun DetalleArtistas(musician : String){
     var id by remember { mutableStateOf("") }
     var nombre by remember { mutableStateOf("") }
 
@@ -57,20 +59,7 @@ fun DetalleArtistas(listaMusicians: ArrayList<Musicians>, viewModel: MusiciansVi
                 .fillMaxWidth()
                 .fillMaxHeight()
         ) {
-            LazyColumn(
-                contentPadding = PaddingValues(horizontal = 16.dp, vertical = 8.dp)
-            ){
-                items(listaMusicians){musician ->
-                    CardMusician(
-                        musician = musician,
-                        funIdMusician = {id = it},
-                        funNombre = { nombre = it },
-                        onClick = {
-                            navController.navigate("musicianDetail/${musician.id}")
-                        }
-                    )
-                }
-            }
+            Text(text = musician)
         }
     }
 }
