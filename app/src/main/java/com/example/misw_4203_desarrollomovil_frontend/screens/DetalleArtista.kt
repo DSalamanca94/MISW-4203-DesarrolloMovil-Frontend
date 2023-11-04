@@ -42,7 +42,7 @@ fun ListadoArtistas(navController: NavController) {
     )
 }*/
 @Composable
-fun ListadoArtistas(listaMusicians: ArrayList<Musicians>, viewModel: MusiciansViewModel){
+fun DetalleArtistas(listaMusicians: ArrayList<Musicians>, viewModel: MusiciansViewModel){
     var id by remember { mutableStateOf("") }
     var nombre by remember { mutableStateOf("") }
 

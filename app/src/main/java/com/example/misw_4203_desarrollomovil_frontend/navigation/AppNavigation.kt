@@ -20,5 +20,9 @@ fun AppNavigation() {
         composable(route = AppScreens.SecondScreen.route) {
             ListadoArtistas(navController)
         }
+
+        composable(route = AppScreens.ThirdScreen.route) {
+            ListadoArtistas(navController)
+        }
     }
 }
