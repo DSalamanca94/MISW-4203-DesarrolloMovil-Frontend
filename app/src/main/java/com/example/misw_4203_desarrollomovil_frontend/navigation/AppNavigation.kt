@@ -6,6 +6,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.misw_4203_desarrollomovil_frontend.screens.HomeScreen
 import com.example.misw_4203_desarrollomovil_frontend.screens.ListadoArtistas
+import com.example.misw_4203_desarrollomovil_frontend.screens.ArtistDetail
 
 @Composable
 fun AppNavigation() {
@@ -19,6 +20,9 @@ fun AppNavigation() {
         }
         composable(route = AppScreens.SecondScreen.route) {
             ListadoArtistas(navController)
+        }
+        composable(route = AppScreens.ThirdScreen.route) {
+            ArtistDetail(navController)
         }
     }
 }

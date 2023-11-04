@@ -29,7 +29,7 @@ fun HomeScreen(navController: NavController) {
 @Composable
 fun ArtistButton(navController: NavController) {
     Button(
-        onClick = {navController.navigate(route = AppScreens.SecondScreen.route)},
+        onClick = {navController.navigate(route = AppScreens.ThirdScreen.route)},
         modifier = Modifier.padding(8.dp)
     ) {
         Text(text = "Artistas")
