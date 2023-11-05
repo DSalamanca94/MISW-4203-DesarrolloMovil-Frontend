@@ -23,32 +23,31 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.example.misw_4203_desarrollomovil_frontend.Musicians
 import com.example.misw_4203_desarrollomovil_frontend.MusiciansViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun ListadoArtistasNav(navController: NavController) {
+fun ListadoArtistasNav(navController: NavController, listaMusicians: ArrayList<Musicians>) {
     Scaffold(
         topBar = {
             TopAppBar({ Text(text = "Listado Artistas") }, navigationIcon = {Icon(imageVector = Icons.Default.ArrowBack, contentDescription = "Arrow Back", modifier = Modifier.clickable { navController.popBackStack() })})
         },
         content = {
+            ListadoArtistas(navController, listaMusicians)
         }
     )
 }
+
 @Composable
-fun ListadoArtistas(
-    listaMusicians: ArrayList<Musicians>,
-    viewModel: MusiciansViewModel,
-    navController: NavController
-){
+fun ListadoArtistas(navController: NavController, listaMusicians: ArrayList<Musicians>){
     var id by remember { mutableStateOf("") }
     var nombre by remember { mutableStateOf("") }
-
     Column(
         modifier = Modifier
             .fillMaxWidth()
@@ -75,15 +74,3 @@ fun ListadoArtistas(
         }
     }
 }
-
-/*
-@Composable
-fun BodyContent(navController: NavController) {
-    Column(
-        modifier = Modifier.fillMaxSize(),
-        verticalArrangement = Arrangement.Center,
-        horizontalAlignment = androidx.compose.ui.Alignment.CenterHorizontally, // Centra el contenido horizontalmente
-    ) {
-        Text(text = "Esto es un artista")
-    }
-}*/

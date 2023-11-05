@@ -19,10 +19,12 @@ import com.example.misw_4203_desarrollomovil_frontend.ui.theme.MISW4203Desarroll
 import androidx.compose.ui.unit.dp
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.ui.Alignment
 import androidx.navigation.compose.rememberNavController
 import com.example.misw_4203_desarrollomovil_frontend.navigation.AppNavigation
 import com.example.misw_4203_desarrollomovil_frontend.screens.HomeScreen
 import com.example.misw_4203_desarrollomovil_frontend.screens.ListadoArtistas
+import com.example.misw_4203_desarrollomovil_frontend.screens.ListadoArtistasNav
 
 class MainActivity : ComponentActivity() {
 
@@ -32,15 +34,7 @@ class MainActivity : ComponentActivity() {
         setContent {
             MISW4203DesarrolloMovilFrontendTheme {
                 Surface {
-                    /*AppNavigation()*/
-                    val navController = rememberNavController()
-
-                    Box(
-                        modifier = Modifier.fillMaxSize()
-                    ){
-                        viewModel.GetMusicians()
-                        ListadoArtistas(viewModel._listaMusicians , viewModel ,navController)
-                    }
+                    AppNavigation(viewModel)
                 }
             }
         }
