@@ -2,6 +2,7 @@ package com.example.misw_4203_desarrollomovil_frontend.screens
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -28,18 +29,18 @@ fun CardMusician(
     musician: Musicians,
     navController: NavController
 ) {
-    Card(
+    Box(
         modifier = Modifier
             .fillMaxWidth()
             .padding(vertical = 8.dp)
             .clickable { musician.id?.let { id -> navController.navigate("${AppScreens.ThirdScreen.route}/$id") } }
         ,
-        elevation = CardDefaults.cardElevation(8.dp)
+        //elevation = CardDefaults.cardElevation(8.dp)
     ) {
         Column(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(20.dp),
+                .padding(15.dp),
             Arrangement.Center
         ) {
             AsyncImage(
