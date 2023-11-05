@@ -6,7 +6,7 @@ data class Musicians(
     var image: String,
     var description: String,
     var birthDate: String, // Puedes utilizar un tipo más específico si lo prefieres, como LocalDate.
-    var albums: ArrayList<Album>
+    var albums: Array<Any>
 )
 
 data class Album(
