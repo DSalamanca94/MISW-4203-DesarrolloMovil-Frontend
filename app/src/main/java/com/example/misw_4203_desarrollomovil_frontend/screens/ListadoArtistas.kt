@@ -4,6 +4,7 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -36,7 +37,7 @@ import com.example.misw_4203_desarrollomovil_frontend.MusiciansViewModel
 fun ListadoArtistasNav(navController: NavController, listaMusicians: ArrayList<Musicians>) {
     Scaffold(
         topBar = {
-            TopAppBar({ Text(text = "Listado Artistas") }, navigationIcon = {Icon(imageVector = Icons.Default.ArrowBack, contentDescription = "Arrow Back", modifier = Modifier.clickable { navController.popBackStack() })})
+            TopAppBar({ Text(text = "Artistas") }, navigationIcon = {Icon(imageVector = Icons.Default.ArrowBack, contentDescription = "Arrow Back", modifier = Modifier.clickable { navController.popBackStack() })})
         },
         content = {
             ListadoArtistas(navController, listaMusicians)
@@ -46,7 +47,6 @@ fun ListadoArtistasNav(navController: NavController, listaMusicians: ArrayList<M
 
 @Composable
 fun ListadoArtistas(navController: NavController, listaMusicians: ArrayList<Musicians>){
-    var id by remember { mutableStateOf("") }
     var nombre by remember { mutableStateOf("") }
     Column(
         modifier = Modifier
@@ -54,21 +54,22 @@ fun ListadoArtistas(navController: NavController, listaMusicians: ArrayList<Musi
             .fillMaxHeight()
             .padding(12.dp)
     ){
-        Column(
-            modifier = Modifier
-                .fillMaxWidth()
-                .fillMaxHeight()
-        ) {
-            LazyColumn(
-                contentPadding = PaddingValues(horizontal = 16.dp, vertical = 8.dp)
-            ){
-                items(listaMusicians){musician ->
-                    CardMusician(
-                        musician = musician,
-                        funIdMusician = {id = it},
-                        funNombre = { nombre = it },
-                        navController = navController
-                    )
+        Row {
+            Column(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .fillMaxHeight().padding(20.dp)
+            ) {
+                LazyColumn(
+                    contentPadding = PaddingValues(horizontal = 16.dp, vertical = 8.dp)
+                ){
+                    items(listaMusicians){musician ->
+                        CardMusician(
+                            musician = musician,
+                            funNombre = { nombre = it },
+                            navController = navController
+                        )
+                    }
                 }
             }
         }
