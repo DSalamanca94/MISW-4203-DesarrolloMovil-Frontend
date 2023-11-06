@@ -3,6 +3,7 @@ package com.example.misw_4203_desarrollomovil_frontend
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.activity.viewModels
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -17,33 +18,26 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.example.misw_4203_desarrollomovil_frontend.ui.theme.MISW4203DesarrolloMovilFrontendTheme
 import androidx.compose.ui.unit.dp
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
+import androidx.compose.ui.Alignment
+import androidx.navigation.compose.rememberNavController
+import com.example.misw_4203_desarrollomovil_frontend.navigation.AppNavigation
+import com.example.misw_4203_desarrollomovil_frontend.screens.HomeScreen
+import com.example.misw_4203_desarrollomovil_frontend.screens.ListadoArtistas
+import com.example.misw_4203_desarrollomovil_frontend.screens.ListadoArtistasNav
 
 class MainActivity : ComponentActivity() {
+
+    val viewModel by viewModels<MusiciansViewModel> ()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
             MISW4203DesarrolloMovilFrontendTheme {
-                Column(
-                    modifier = Modifier.fillMaxSize(),
-                    verticalArrangement = Arrangement.Center,
-                    horizontalAlignment = androidx.compose.ui.Alignment.CenterHorizontally, // Centra el contenido horizontalmente
-                ) {
-                    ArtistButton()
+                Surface {
+                    AppNavigation(viewModel)
                 }
-
             }
         }
     }
 }
-@Composable
-fun ArtistButton() {
-    Button(
-        onClick = {
-            // Aquí puedes definir el comportamiento que deseas cuando se haga clic en el botón "Artista".
-            // Por ejemplo, puedes navegar a otra pantalla o realizar alguna acción específica.
-        },
-        modifier = Modifier.padding(8.dp)
-    ) {
-        Text(text = "Artistas")
-    }
-}
+
