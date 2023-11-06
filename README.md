@@ -14,7 +14,7 @@ Sigue estos pasos para ejecutar la aplicación en Android Studio:
 
 ### 1. Clona el repositorio:
 
-git clone https://tu-repositorio.git
+[git clone https://tu-repositorio.git](https://github.com/DSalamanca94/MISW-4203-DesarrolloMovil-Frontend.git)
 
 ### 2. Abre el proyecto en Android Studio:
 
