@@ -1,9 +1,11 @@
 package com.example.misw_4203_desarrollomovil_frontend.navigation
 
 import androidx.compose.runtime.Composable
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navArgument
 import com.example.misw_4203_desarrollomovil_frontend.MusiciansViewModel
 import com.example.misw_4203_desarrollomovil_frontend.screens.DetalleArtistas
 import com.example.misw_4203_desarrollomovil_frontend.screens.HomeScreen
@@ -25,10 +27,15 @@ fun AppNavigation(viewModel: MusiciansViewModel) {
                 ListadoArtistasNav(navController, viewModel._listaMusicians)
             }
         }
-        composable(route = AppScreens.ThirdScreen.route) { backStackEntry ->
+        composable(
+            route = "${AppScreens.ThirdScreen}/{musicianId}",
+            arguments = listOf(navArgument("musicianId") { type = NavType.IntType })
+        ) { backStackEntry ->
             val musicianId = backStackEntry.arguments?.getInt("musicianId")
+            viewModel.GetMusiciansbyId(musicianId.toString())
+
             if (musicianId != null) {
-                DetalleArtistas(musicianId.toString())
+                DetalleArtistas(navController, viewModel._detalleMusician)
             }
         }
     }

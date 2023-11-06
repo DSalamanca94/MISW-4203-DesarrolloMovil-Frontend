@@ -1,22 +1,23 @@
 package com.example.misw_4203_desarrollomovil_frontend
 
-import android.util.Log
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import retrofit2.Response
 
 class MusiciansViewModel: ViewModel() {
     var _listaMusicians: ArrayList<Musicians> by mutableStateOf(arrayListOf())
-    lateinit var _detalleMusician: Musicians
+    var _detalleMusician: Musicians = Musicians(
+        id = 0,
+        name ="",
+        image = "",
+        description = "",
+        birthDate = "",
+        albums = emptyArray())
 
     fun GetMusicians() {
         viewModelScope.launch(Dispatchers.IO){
@@ -31,7 +32,13 @@ class MusiciansViewModel: ViewModel() {
         viewModelScope.launch(Dispatchers.IO){
             val response = RetroficClient.webService.getMusiciansbyId(Musician_Id)
             withContext(Dispatchers.Main){
-                _detalleMusician = response.body()!!
+                _detalleMusician = response.body()?:Musicians(
+                    id = 0,
+                    name ="",
+                    image = "",
+                    description = "",
+                    birthDate = "",
+                    albums = emptyArray())
             }
         }
     }

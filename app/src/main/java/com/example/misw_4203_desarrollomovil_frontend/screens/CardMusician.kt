@@ -33,7 +33,7 @@ fun CardMusician(
         modifier = Modifier
             .fillMaxWidth()
             .padding(vertical = 8.dp)
-            .clickable { musician.id?.let { id -> navController.navigate("${AppScreens.ThirdScreen.route}/$id") } }
+            .clickable { musician.id?.let { id -> navController.navigate("${AppScreens.ThirdScreen}/$id") } }
         ,
         //elevation = CardDefaults.cardElevation(8.dp)
     ) {
