@@ -40,7 +40,7 @@ git clone https://tu-repositorio.git
 - Descarga este archivo y moverlo a un dispositivo Android.
 
 
-| **Descaragar APK**          | **Instalar APK**       | **Aceptar Permisos**      |**Resultado**      |
+| **Descargar APK**          | **Instalar APK**       | **Aceptar Permisos**      |**Resultado**      |
 |--------------------|-----------------|----------------|----------------|
 |![WhatsApp Image 2023-11-05 at 22 21 59_e09461b7](https://github.com/DSalamanca94/MISW-4203-DesarrolloMovil-Frontend/assets/124327900/04fead58-9631-4042-a305-3513072784bc)| ![image](https://github.com/DSalamanca94/MISW-4203-DesarrolloMovil-Frontend/assets/124327900/affd47b3-3984-4ab5-b9ff-875c6975a700)| ![image](https://github.com/DSalamanca94/MISW-4203-DesarrolloMovil-Frontend/assets/124327900/94ebb497-4f42-478e-9b96-cb3d1a84e1fe)| ![WhatsApp Image 2023-11-05 at 22 18 26_cbde4c67](https://github.com/DSalamanca94/MISW-4203-DesarrolloMovil-Frontend/assets/124327900/98870c12-4df0-44ee-b44d-d9636b65183c)|
 
