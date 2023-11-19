@@ -27,7 +27,7 @@ open class AlbumsViewModel : ViewModel(){
         comments = emptyArray())
 
     fun getAlbumes() {
-        viewModelScope.launch(Dispatchers.IO) {
+        viewModelScope.launch {
             try {
                 val response = RetroficClient.webService.getAlbumes()
 
@@ -51,7 +51,7 @@ open class AlbumsViewModel : ViewModel(){
     }
 
     fun GetAlbumbyId(Album_Id: String) {
-        viewModelScope.launch(Dispatchers.IO){
+        viewModelScope.launch {
             val response = RetroficClient.webService.getAlbumbyId(Album_Id)
             withContext(Dispatchers.Main){
                 _detalleAlbum = response.body()?:AlbumList(
@@ -72,7 +72,7 @@ open class AlbumsViewModel : ViewModel(){
     }
 
     fun addAlbum(album: AlbumDto) {
-        viewModelScope.launch(Dispatchers.IO) {
+        viewModelScope.launch {
             val response = RetroficClient.webService.addAlbum(album)
             withContext(Dispatchers.Main) {
                 println("Codigo: $response.code()")

@@ -36,84 +36,68 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-import androidx.navigation.compose.rememberNavController
 import com.example.misw_4203_desarrollomovil_frontend.Musicians
-import com.example.misw_4203_desarrollomovil_frontend.MusiciansViewModel
-import com.example.misw_4203_desarrollomovil_frontend.navigation.AppScreens
 import coil.compose.AsyncImage
+import com.example.misw_4203_desarrollomovil_frontend.Result
 
-/*
-@OptIn(ExperimentalMaterial3Api::class)
-@Composable
-fun ListadoArtistas(navController: NavController) {
-    Scaffold(
-        topBar = {
-            TopAppBar({ Text(text = "Listado Artistas") }, navigationIcon = {Icon(imageVector = Icons.Default.ArrowBack, contentDescription = "Arrow Back", modifier = Modifier.clickable { navController.popBackStack() })})
-        },
-        content = {
-            BodyContent(navController);
-        }
-    )
-}*/
-@SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
-@OptIn(ExperimentalMaterial3Api::class)
-@Composable
-fun DetalleArtistas(navController: NavController, musician:Musicians){
-    var id by remember { mutableStateOf("") }
-    var nombre by remember { mutableStateOf("") }
-
-    Scaffold(
-        topBar = {
-            TopAppBar(
-                { Text(text = "${musician.name}") },
-                navigationIcon = {Icon(imageVector = Icons.Default.ArrowBack, contentDescription = "Arrow Back", modifier = Modifier.clickable { navController.popBackStack() })})
-        },
-        content = {
-            DetalleArtistas(musician)
-        }
-    )
-}
-
-@Composable
-fun DetalleArtistas(musician: Musicians) {
-    Column(
-        modifier = Modifier
-            .fillMaxWidth()
-            .fillMaxHeight()
-    ){
-        Row {
-            Column(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .fillMaxHeight()
-            ) {
-                AsyncImage(
-                    model = musician.image,
-                    contentDescription = musician.name,
-                    contentScale = ContentScale.Crop,
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .height(400.dp)
-                        .align(Alignment.CenterHorizontally),
-                )
-                Text(
-                    text = "Descripcion",
-                    modifier = Modifier
-                        .padding(16.dp),
-                    style = TextStyle(fontWeight = FontWeight.Bold)
-                )
-
-                Text(
-                    text = musician.description,
-                    modifier = Modifier
-                        .align(Alignment.CenterHorizontally)
-                        .padding(18.dp),
-                )
-            }
-        }
+// Extension function for Result
+fun <T> Result<T>.getOrDefault(defaultValue: T): T {
+    return when (this) {
+        is Result.Success -> this.data
+        is Result.Error -> defaultValue
     }
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun DetalleArtistas(navController: NavController, musician: Result<Musicians>) {
+    Scaffold(
+        topBar = {
+            TopAppBar(
+                title = { Text(text = musician.getOrDefault(Musicians(0, "Default", "", "", "", emptyArray())).name) },
+                navigationIcon = {
+                    Icon(
+                        imageVector = Icons.Default.ArrowBack,
+                        contentDescription = "Arrow Back",
+                        modifier = Modifier.clickable { navController.popBackStack() }
+                    )
+                }
+            )
+        },
+        content = {
+            DetalleArtistasContent(musician = musician, modifier = Modifier.padding(it))
+        }
+    )
+}
+
+@Composable
+fun DetalleArtistasContent(musician: Result<Musicians>, modifier: Modifier) {
+    val artist = musician.getOrDefault(Musicians(0, "Default", "", "", "", emptyArray()))
+
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+    ) {
+        AsyncImage(
+            model = artist.image,
+            contentDescription = artist.name,
+            contentScale = ContentScale.Crop,
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(400.dp),
+        )
+        Text(
+            text = "Description",
+            modifier = Modifier
+                .padding(16.dp),
+            style = TextStyle(fontWeight = FontWeight.Bold)
+        )
+        Text(
+            text = artist.description,
+            modifier = Modifier
+                .padding(18.dp),
+        )
+    }
+}
