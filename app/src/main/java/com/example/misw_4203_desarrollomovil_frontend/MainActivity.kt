@@ -27,17 +27,18 @@ import com.example.misw_4203_desarrollomovil_frontend.screens.ListadoArtistas
 import com.example.misw_4203_desarrollomovil_frontend.screens.ListadoArtistasNav
 
 class MainActivity : ComponentActivity() {
-
+    val viewModelA by viewModels<AlbumsViewModel> ()
     val viewModel by viewModels<MusiciansViewModel> ()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
             MISW4203DesarrolloMovilFrontendTheme {
                 Surface {
-                    AppNavigation(viewModel)
+                    AppNavigation(viewModel,viewModelA)
                 }
             }
         }
     }
 }
+
 
