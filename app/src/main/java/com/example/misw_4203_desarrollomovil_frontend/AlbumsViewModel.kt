@@ -11,7 +11,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
-class AlbumsViewModel : ViewModel(){
+open class AlbumsViewModel : ViewModel(){
     var _listaAlbumes: ArrayList<AlbumList> by mutableStateOf(arrayListOf())
 
     var _detalleAlbum: AlbumList = AlbumList(

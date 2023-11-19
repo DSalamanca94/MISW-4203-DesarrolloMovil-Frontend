@@ -5,11 +5,8 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onNodeWithContentDescription
 import androidx.compose.ui.test.onNodeWithText
-import androidx.compose.ui.test.performClick
 import androidx.test.ext.junit.runners.AndroidJUnit4
-import com.example.misw_4203_desarrollomovil_frontend.screens.HomeScreen
 import androidx.navigation.NavController
-import androidx.navigation.compose.ComposeNavigator
 import com.example.misw_4203_desarrollomovil_frontend.screens.DetalleArtistas
 
 import org.junit.Test
@@ -46,15 +43,10 @@ class DetalleArtistaTest {
 
     @Test
     fun validaInfoMostrada() {
-        Thread.sleep(1000)
-        //Nombre mostrado aparezca y sea correcto
-        rule.onNodeWithText("Queen").assertExists()
-
-        //Descripcion aparezca y sea correcta
-        rule.onNodeWithText("Descripción del músico").assertExists()
-
-        //Imagen aparezca y sea correcta
-        rule.onNodeWithContentDescription("https://pm1.narvii.com/6724/a8b29909071e9d08517b40c748b6689649372852v2_hq.jpg")
+        Thread.sleep(5000)
+        rule.onNodeWithText(musician.name).assertExists()
+        rule.onNodeWithText(musician.description).assertExists()
+        rule.onNodeWithContentDescription(musician.image)
 
     }
 }

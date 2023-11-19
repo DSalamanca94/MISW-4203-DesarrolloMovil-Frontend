@@ -68,6 +68,7 @@ dependencies {
     implementation("com.squareup.retrofit2:retrofit:2.9.0")
     implementation("com.squareup.retrofit2:converter-gson:2.9.0")
     implementation("com.google.code.gson:gson:2.10.1")
+    implementation("androidx.navigation:navigation-testing:2.7.5")
 
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
@@ -79,4 +80,6 @@ dependencies {
 
     implementation ("androidx.activity:activity-compose:1.3.1")
     implementation ("androidx.lifecycle:lifecycle-viewmodel-compose:1.0.0-alpha07")
+    testImplementation("org.mockito:mockito-core:3.12.4")
+    androidTestImplementation("org.mockito:mockito-android:3.12.4")
 }
