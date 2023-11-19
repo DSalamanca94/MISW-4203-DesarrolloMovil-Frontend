@@ -78,6 +78,10 @@ class AlbumsViewModel : ViewModel(){
                 println("Codigo: $response.code()")
                 if(response.code() == 200){
                     println("Entro: $response.code()")
+                } else {
+                    println("Error: ${response.code()}")
+                    val errorBody = response.errorBody()?.string()
+                    println("Error Details: $errorBody")
                 }
             }
         }

@@ -8,7 +8,7 @@ import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.example.misw_4203_desarrollomovil_frontend.MusiciansViewModel
 import com.example.misw_4203_desarrollomovil_frontend.AlbumsViewModel
-import com.example.misw_4203_desarrollomovil_frontend.Formulario
+import com.example.misw_4203_desarrollomovil_frontend.screens.Formulario
 import com.example.misw_4203_desarrollomovil_frontend.screens.DetalleAlbum
 import com.example.misw_4203_desarrollomovil_frontend.screens.DetalleArtistas
 import com.example.misw_4203_desarrollomovil_frontend.screens.HomeScreen
