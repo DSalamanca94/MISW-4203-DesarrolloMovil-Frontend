@@ -1,12 +1,10 @@
 package com.example.misw_4203_desarrollomovil_frontend.screens
 
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxHeight
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
@@ -24,30 +22,36 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.lifecycle.LiveData
 import androidx.navigation.NavController
 import com.example.misw_4203_desarrollomovil_frontend.Musicians
-import com.example.misw_4203_desarrollomovil_frontend.MusiciansViewModel
+import com.example.misw_4203_desarrollomovil_frontend.Result
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun ListadoArtistasNav(navController: NavController, listaMusicians: ArrayList<Musicians>) {
+fun ListadoArtistasNav(navController: NavController, listaMusicians: LiveData<Result<List<Musicians>>>) {
     Scaffold(
         topBar = {
-            TopAppBar({ Text(text = "Artistas") }, navigationIcon = {Icon(imageVector = Icons.Default.ArrowBack, contentDescription = "Arrow Back", modifier = Modifier.clickable { navController.popBackStack() })})
+            TopAppBar({ Text(text = "Artistas") },
+                navigationIcon = {
+                    Icon(
+                        imageVector = Icons.Default.ArrowBack,
+                        contentDescription = "Arrow Back",
+                        modifier = Modifier.clickable { navController.popBackStack() }
+                    )
+                })
         },
         content = {
-            ListadoArtistas(navController, listaMusicians)
+            ListadoArtistas(listaMusicians = listaMusicians.value ?: Result.Success(emptyList()), navController = navController, modifier = Modifier.padding(it))
         }
     )
 }
 
 @Composable
-fun ListadoArtistas(navController: NavController, listaMusicians: ArrayList<Musicians>){
+fun ListadoArtistas(listaMusicians: Result<List<Musicians>>, navController: NavController, modifier: Modifier){
     var nombre by remember { mutableStateOf("") }
+    val musiciansList = listaMusicians.getOrDefault(emptyList())
     Column(
         modifier = Modifier
             .fillMaxWidth()
@@ -63,7 +67,7 @@ fun ListadoArtistas(navController: NavController, listaMusicians: ArrayList<Musi
                 LazyColumn(
                     contentPadding = PaddingValues(horizontal = 16.dp, vertical = 8.dp)
                 ){
-                    items(listaMusicians){musician ->
+                    items(musiciansList){musician ->
                         CardMusician(
                             musician = musician,
                             funNombre = { nombre = it },

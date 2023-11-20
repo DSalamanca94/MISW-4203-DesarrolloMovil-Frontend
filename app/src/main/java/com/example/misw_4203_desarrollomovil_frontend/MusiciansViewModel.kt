@@ -3,44 +3,82 @@ package com.example.misw_4203_desarrollomovil_frontend
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import java.lang.Exception
 
-class MusiciansViewModel: ViewModel() {
-    var _listaMusicians: ArrayList<Musicians> by mutableStateOf(arrayListOf())
-    var _detalleMusician: Musicians = Musicians(
+// Sealed class to represent success or error in network request
+sealed class Result<out T> {
+    data class Success<out T>(val data: T) : Result<T>()
+    data class Error(val exception: Exception) : Result<Nothing>()
+}
+
+class MusiciansViewModel : ViewModel() {
+    private var _listaMusicians = MutableLiveData<Result<List<Musicians>>>()
+    val listaMusicians: LiveData<Result<List<Musicians>>> get() = _listaMusicians
+
+    private var _detalleMusician by mutableStateOf<Result<Musicians>>(Result.Success(Musicians(
         id = 0,
-        name ="",
+        name = "",
         image = "",
         description = "",
         birthDate = "",
-        albums = emptyArray())
+        albums = emptyArray()
+    )))
+    val detalleMusician: Result<Musicians> get() = _detalleMusician
 
-    fun GetMusicians() {
-        viewModelScope.launch(Dispatchers.IO){
-            val response = RetroficClient.webService.getMusicians()
-            withContext(Dispatchers.Main){
-                _listaMusicians = (response.body() as ArrayList<Musicians>?)!!
+    // Function to fetch musicians from the API
+    fun getMusicians() {
+        viewModelScope.launch {
+            try {
+                // Call the suspended function to get musicians and handle the result
+                val response = withContext(Dispatchers.IO) {
+                    RetroficClient.webService.getMusicians()
+                }
+
+                if (response.isSuccessful) {
+                    val musiciansList = response.body() ?: emptyList()
+                    _listaMusicians.postValue(Result.Success(musiciansList))
+                } else {
+                    _listaMusicians.postValue(Result.Error(Exception("Error in the request: ${response.code()}")))
+                }
+            } catch (e: Exception) {
+                _listaMusicians.postValue(Result.Error(e))
             }
         }
     }
 
-    fun GetMusiciansbyId(Musician_Id: String) {
-        viewModelScope.launch(Dispatchers.IO){
-            val response = RetroficClient.webService.getMusiciansbyId(Musician_Id)
-            withContext(Dispatchers.Main){
-                _detalleMusician = response.body()?:Musicians(
-                    id = 0,
-                    name ="",
-                    image = "",
-                    description = "",
-                    birthDate = "",
-                    albums = emptyArray())
+    // Suspended function to get a musician by ID from the API
+    fun getMusiciansById(musicianId: String) {
+        viewModelScope.launch {
+            try {
+                // Call the suspended function to get a musician by ID and handle the result
+                val response = withContext(Dispatchers.IO) {
+                    RetroficClient.webService.getMusiciansbyId(musicianId)
+                }
+
+                if (response.isSuccessful) {
+                    val musician = response.body()
+                        ?: Musicians(
+                            id = 0,
+                            name = "",
+                            image = "",
+                            description = "",
+                            birthDate = "",
+                            albums = emptyArray()
+                        )
+                    _detalleMusician = Result.Success(musician)
+                } else {
+                    _detalleMusician = Result.Error(Exception("Error in the request: ${response.code()}"))
+                }
+            } catch (e: Exception) {
+                _detalleMusician = Result.Error(e)
             }
         }
     }
 }
-
