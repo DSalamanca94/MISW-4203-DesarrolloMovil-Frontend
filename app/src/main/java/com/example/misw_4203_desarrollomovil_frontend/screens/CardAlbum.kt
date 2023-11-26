@@ -4,11 +4,13 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.Button
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -18,7 +20,6 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import coil.compose.AsyncImage
-import com.example.misw_4203_desarrollomovil_frontend.AlbumDtoResponse
 import com.example.misw_4203_desarrollomovil_frontend.AlbumList
 import com.example.misw_4203_desarrollomovil_frontend.navigation.AppScreens
 
@@ -52,6 +53,34 @@ fun CardAlbum(
                 text = album.name,
                 modifier = Modifier.align(Alignment.CenterHorizontally)
             )
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.Center
+            ) {
+                Button(
+                    onClick = {
+                        album.id?.let { id ->
+                            navController.navigate("${AppScreens.SeventhScreen}/$id")
+                        }
+                    },
+                    modifier = Modifier.padding(top = 16.dp, end = 8.dp)
+                        .align(Alignment.Top)
+                ) {
+                    Text("Ver tracks")
+                }
+
+                Button(
+                    onClick = {
+                        album.id?.let { id ->
+                            navController.navigate("${AppScreens.EigthScreen}/$id")
+                        }
+                    },
+                    modifier = Modifier.padding(top = 16.dp, start = 4.dp)
+                        .align(Alignment.Top)
+                ) {
+                    Text("Comenta")
+                }
+            }
         }
     }
 }

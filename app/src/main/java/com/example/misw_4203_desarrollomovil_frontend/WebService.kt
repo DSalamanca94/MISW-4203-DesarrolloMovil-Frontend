@@ -27,4 +27,15 @@ interface WebService {
         @Body album: AlbumDto
     ): Response<AlbumDtoResponse>
 
+    @GET("/albums/{id}/tracks")
+    suspend fun getTracks(
+        @Path("id") albumId: String
+    ): Response<List<TrackList>>
+
+    @POST("/albums{id}/comments")
+    suspend fun addAComment(
+        @Body Comment: Comment
+    ): Response<Comment>
+
+
 }

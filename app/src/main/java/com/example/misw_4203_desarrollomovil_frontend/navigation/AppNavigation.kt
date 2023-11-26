@@ -1,6 +1,7 @@
 package com.example.misw_4203_desarrollomovil_frontend.navigation
 
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -14,7 +15,7 @@ import com.example.misw_4203_desarrollomovil_frontend.screens.DetalleArtistas
 import com.example.misw_4203_desarrollomovil_frontend.screens.HomeScreen
 import com.example.misw_4203_desarrollomovil_frontend.screens.ListadoAlbumesNav
 import com.example.misw_4203_desarrollomovil_frontend.screens.ListadoArtistasNav
-
+import com.example.misw_4203_desarrollomovil_frontend.screens.ListadoTracksNav
 
 @Composable
 fun AppNavigation(viewModel: MusiciansViewModel, viewModelA: AlbumsViewModel) {
@@ -71,6 +72,18 @@ fun AppNavigation(viewModel: MusiciansViewModel, viewModelA: AlbumsViewModel) {
                 DetalleAlbum(navController, viewModelA._detalleAlbum)
             }
         }
+
+        composable(
+            route = "${AppScreens.SeventhScreen}/{albumId}",
+            arguments = listOf(navArgument("albumId") { type = NavType.IntType })
+        ) {backStackEntry ->
+            val albumId = backStackEntry.arguments?.getInt("albumId")
+            viewModelA.getTracks(albumId.toString())
+            if (albumId !== null) {
+                ListadoTracksNav(navController, viewModelA._listaTracks)
+            }
+        }
+
 
     }
 }

@@ -13,6 +13,7 @@ import kotlinx.coroutines.withContext
 
 open class AlbumsViewModel : ViewModel(){
     var _listaAlbumes: ArrayList<AlbumList> by mutableStateOf(arrayListOf())
+    var _listaTracks: ArrayList<TrackList> by mutableStateOf(arrayListOf())
 
     var _detalleAlbum: AlbumList = AlbumList(
         id = 0,
@@ -74,6 +75,46 @@ open class AlbumsViewModel : ViewModel(){
     fun addAlbum(album: AlbumDto) {
         viewModelScope.launch {
             val response = RetroficClient.webService.addAlbum(album)
+            withContext(Dispatchers.Main) {
+                println("Codigo: $response.code()")
+                if(response.code() == 200){
+                    println("Entro: $response.code()")
+                } else {
+                    println("Error: ${response.code()}")
+                    val errorBody = response.errorBody()?.string()
+                    println("Error Details: $errorBody")
+                }
+            }
+        }
+    }
+
+    fun getTracks(Album_Id: String) {
+        viewModelScope.launch {
+            try {
+                val response = RetroficClient.webService.getTracks(Album_Id)
+
+                if (response.isSuccessful) {
+                    val tracks = response.body() as? ArrayList<TrackList>
+                    tracks?.let {
+                        withContext(Dispatchers.Main) {
+                            _listaTracks = it
+                        }
+                    } ?: run {
+                        showErrorInView("Error: Lista vacía")
+                    }
+                } else {
+                    // Manejar errores de respuesta no exitosa (códigos HTTP diferentes a 200)
+                    showErrorInView("Error: ${response.code()}")
+                }
+            } catch (e: Exception) {
+                showErrorInView("Error: ${e.message}")
+            }
+        }
+    }
+
+    fun addAComment(comment: Comment) {
+        viewModelScope.launch {
+            val response = RetroficClient.webService.addAComment(comment)
             withContext(Dispatchers.Main) {
                 println("Codigo: $response.code()")
                 if(response.code() == 200){
