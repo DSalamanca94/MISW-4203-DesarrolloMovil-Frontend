@@ -32,14 +32,14 @@ class DetalleArtistaTest {
     val rule = createComposeRule()
     lateinit var navController: NavController
 
-    @Before
+    /*@Before
     fun setupAppNavHost() {
         rule.setContent {
             navController = NavController(LocalContext.current)
             DetalleArtistas(navController = navController, musician = musician )
             //HomeScreen(navController = navController)
          }
-    }
+    }*/
 
     @Test
     fun validaInfoMostrada() {

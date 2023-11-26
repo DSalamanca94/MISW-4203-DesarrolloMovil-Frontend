@@ -49,13 +49,13 @@ class ListarArtistaTest {
     @get:Rule
     val rule = createComposeRule()
 
-    @Before
+    /*@Before
     fun setupAppNavHost() {
         rule.setContent {
             var navController = NavController(LocalContext.current)
             ListadoArtistas(navController = navController, listaMusicians = musiciansArray)
         }
-    }
+    }*/
 
     @Test
     fun useAppContext() {

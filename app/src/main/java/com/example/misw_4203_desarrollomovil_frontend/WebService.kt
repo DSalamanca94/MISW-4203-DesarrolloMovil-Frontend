@@ -27,4 +27,10 @@ interface WebService {
         @Body album: AlbumDto
     ): Response<AlbumDtoResponse>
 
+
+    @GET("/musicians/{id}/albums")
+    suspend fun getAlbumsbyMusicianId(
+        @Path("id") musicianId: String
+    ): Response<List<Album>>
+
 }
