@@ -5,7 +5,8 @@ import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onNodeWithContentDescription
 import androidx.compose.ui.test.onNodeWithText
 import androidx.test.ext.junit.runners.AndroidJUnit4
-import com.example.misw_4203_desarrollomovil_frontend.screens.DetalleAlbum
+import com.example.misw_4203_desarrollomovil_frontend.Views.DetalleAlbum
+import com.example.misw_4203_desarrollomovil_frontend.Models.AlbumList
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test

@@ -1,4 +1,4 @@
-package com.example.misw_4203_desarrollomovil_frontend.navigation
+package com.example.misw_4203_desarrollomovil_frontend.ViewModels.navigation
 
 sealed class AppScreens(val route: String) {
     object FirstScreen: AppScreens("first_screen");

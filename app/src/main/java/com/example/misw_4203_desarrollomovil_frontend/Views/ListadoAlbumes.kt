@@ -1,4 +1,4 @@
-package com.example.misw_4203_desarrollomovil_frontend.screens
+package com.example.misw_4203_desarrollomovil_frontend.Views
 
 import android.annotation.SuppressLint
 import androidx.compose.foundation.layout.Column
@@ -28,8 +28,8 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.compose.material3.Text
 import androidx.compose.material3.Icon
-import com.example.misw_4203_desarrollomovil_frontend.AlbumList
-import com.example.misw_4203_desarrollomovil_frontend.navigation.AppScreens
+import com.example.misw_4203_desarrollomovil_frontend.Models.AlbumList
+import com.example.misw_4203_desarrollomovil_frontend.ViewModels.navigation.AppScreens
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @OptIn(ExperimentalMaterial3Api::class)

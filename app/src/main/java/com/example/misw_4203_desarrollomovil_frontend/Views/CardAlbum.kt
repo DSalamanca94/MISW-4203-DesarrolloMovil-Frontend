@@ -1,4 +1,4 @@
-package com.example.misw_4203_desarrollomovil_frontend.screens
+package com.example.misw_4203_desarrollomovil_frontend.Views
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -20,8 +20,8 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import coil.compose.AsyncImage
-import com.example.misw_4203_desarrollomovil_frontend.AlbumList
-import com.example.misw_4203_desarrollomovil_frontend.navigation.AppScreens
+import com.example.misw_4203_desarrollomovil_frontend.Models.AlbumList
+import com.example.misw_4203_desarrollomovil_frontend.ViewModels.navigation.AppScreens
 
 @Composable
 fun CardAlbum(

@@ -1,4 +1,4 @@
-package com.example.misw_4203_desarrollomovil_frontend
+package com.example.misw_4203_desarrollomovil_frontend.ViewModels
 
 import android.view.View
 import android.widget.TextView
@@ -7,9 +7,14 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.misw_4203_desarrollomovil_frontend.Models.AlbumDto
+import com.example.misw_4203_desarrollomovil_frontend.Models.AlbumList
+import com.example.misw_4203_desarrollomovil_frontend.Models.Comment
+import com.example.misw_4203_desarrollomovil_frontend.Models.TrackList
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import retrofit2.HttpException
 
 open class AlbumsViewModel : ViewModel(){
     var _listaAlbumes: ArrayList<AlbumList> by mutableStateOf(arrayListOf())
@@ -55,7 +60,7 @@ open class AlbumsViewModel : ViewModel(){
         viewModelScope.launch {
             val response = RetroficClient.webService.getAlbumbyId(Album_Id)
             withContext(Dispatchers.Main){
-                _detalleAlbum = response.body()?:AlbumList(
+                _detalleAlbum = response.body()?: AlbumList(
                     id = 0,
                     name ="",
                     cover = "",
@@ -112,19 +117,20 @@ open class AlbumsViewModel : ViewModel(){
         }
     }
 
-    fun addAComment(comment: Comment) {
-        viewModelScope.launch {
-            val response = RetroficClient.webService.addAComment(comment)
-            withContext(Dispatchers.Main) {
-                println("Codigo: $response.code()")
-                if(response.code() == 200){
-                    println("Entro: $response.code()")
-                } else {
-                    println("Error: ${response.code()}")
-                    val errorBody = response.errorBody()?.string()
-                    println("Error Details: $errorBody")
-                }
+
+    suspend fun addCommentSuspend(albumId: String, comment: Comment) {
+        try {
+            val response = RetroficClient.webService.addAComment(albumId, comment)
+            if (response.isSuccessful) {
+
+            } else {
+                val errorBody = response.errorBody()?.string()
+                println("Error: ${response.code()}\n$errorBody")
             }
+        } catch (e: HttpException) {
+            println("Excepción HTTP: ${e.message}")
+        } catch (e: Exception) {
+            println("Excepción: ${e.message}")
         }
     }
 

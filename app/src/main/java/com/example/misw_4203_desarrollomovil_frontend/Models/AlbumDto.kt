@@ -1,7 +1,6 @@
-package com.example.misw_4203_desarrollomovil_frontend
+package com.example.misw_4203_desarrollomovil_frontend.Models
 
-data class AlbumDtoResponse(
-    var id: Int,
+data class AlbumDto(
     var name: String,
     var cover: String,
     var releaseDate: String,
@@ -9,3 +8,4 @@ data class AlbumDtoResponse(
     var genre: String,
     var recordLabel: String,
 )
+

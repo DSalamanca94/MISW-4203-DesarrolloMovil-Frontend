@@ -1,21 +1,22 @@
-package com.example.misw_4203_desarrollomovil_frontend.navigation
+package com.example.misw_4203_desarrollomovil_frontend.ViewModels.navigation
 
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
-import com.example.misw_4203_desarrollomovil_frontend.MusiciansViewModel
-import com.example.misw_4203_desarrollomovil_frontend.AlbumsViewModel
-import com.example.misw_4203_desarrollomovil_frontend.screens.Formulario
-import com.example.misw_4203_desarrollomovil_frontend.screens.DetalleAlbum
-import com.example.misw_4203_desarrollomovil_frontend.screens.DetalleArtistas
-import com.example.misw_4203_desarrollomovil_frontend.screens.HomeScreen
-import com.example.misw_4203_desarrollomovil_frontend.screens.ListadoAlbumesNav
-import com.example.misw_4203_desarrollomovil_frontend.screens.ListadoArtistasNav
-import com.example.misw_4203_desarrollomovil_frontend.screens.ListadoTracksNav
+import com.example.misw_4203_desarrollomovil_frontend.Models.Collector
+import com.example.misw_4203_desarrollomovil_frontend.Views.Formulario
+import com.example.misw_4203_desarrollomovil_frontend.Views.DetalleAlbum
+import com.example.misw_4203_desarrollomovil_frontend.Views.DetalleArtistas
+import com.example.misw_4203_desarrollomovil_frontend.Views.HomeScreen
+import com.example.misw_4203_desarrollomovil_frontend.Views.ListadoAlbumesNav
+import com.example.misw_4203_desarrollomovil_frontend.Views.ListadoArtistasNav
+import com.example.misw_4203_desarrollomovil_frontend.Views.ListadoTracksNav
+import com.example.misw_4203_desarrollomovil_frontend.ViewModels.AlbumsViewModel
+import com.example.misw_4203_desarrollomovil_frontend.ViewModels.MusiciansViewModel
+import com.example.misw_4203_desarrollomovil_frontend.Views.CommentForm
 
 @Composable
 fun AppNavigation(viewModel: MusiciansViewModel, viewModelA: AlbumsViewModel) {
@@ -84,7 +85,20 @@ fun AppNavigation(viewModel: MusiciansViewModel, viewModelA: AlbumsViewModel) {
             }
         }
 
-
+        composable(
+            route = "${AppScreens.EigthScreen.route}/{albumId}",
+            arguments = listOf(navArgument("albumId") { type = NavType.StringType })
+        ) { backStackEntry ->
+            val albumId = backStackEntry.arguments?.getString("albumId")
+            albumId?.let {
+                CommentForm(
+                    navController = navController,
+                    viewModelA = viewModelA,
+                    collectors = listOf(), 
+                    albumId = it
+                )
+            } ?: navController.popBackStack()
+        }
     }
 }
 

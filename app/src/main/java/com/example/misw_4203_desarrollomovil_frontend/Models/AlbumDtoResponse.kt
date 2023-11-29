@@ -1,8 +1,7 @@
-package com.example.misw_4203_desarrollomovil_frontend
+package com.example.misw_4203_desarrollomovil_frontend.Models
 
-import java.sql.Date
-
-data class AlbumDto(
+data class AlbumDtoResponse(
+    var id: Int,
     var name: String,
     var cover: String,
     var releaseDate: String,
@@ -10,4 +9,3 @@ data class AlbumDto(
     var genre: String,
     var recordLabel: String,
 )
-

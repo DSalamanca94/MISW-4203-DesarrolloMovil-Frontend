@@ -1,4 +1,4 @@
-package com.example.misw_4203_desarrollomovil_frontend
+package com.example.misw_4203_desarrollomovil_frontend.Models
 
 data class AlbumList(
     var id: Int,

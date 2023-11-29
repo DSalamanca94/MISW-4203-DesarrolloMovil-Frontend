@@ -1,4 +1,10 @@
-package com.example.misw_4203_desarrollomovil_frontend
+package com.example.misw_4203_desarrollomovil_frontend.ViewModels
+import com.example.misw_4203_desarrollomovil_frontend.Models.AlbumDto
+import com.example.misw_4203_desarrollomovil_frontend.Models.AlbumDtoResponse
+import com.example.misw_4203_desarrollomovil_frontend.Models.AlbumList
+import com.example.misw_4203_desarrollomovil_frontend.Models.Comment
+import com.example.misw_4203_desarrollomovil_frontend.Models.Musicians
+import com.example.misw_4203_desarrollomovil_frontend.Models.TrackList
 import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.GET
@@ -32,9 +38,10 @@ interface WebService {
         @Path("id") albumId: String
     ): Response<List<TrackList>>
 
-    @POST("/albums{id}/comments")
+    @POST("/albums/{id}/comments")
     suspend fun addAComment(
-        @Body Comment: Comment
+        @Path("id") albumId: String,
+        @Body comment: Comment
     ): Response<Comment>
 
 

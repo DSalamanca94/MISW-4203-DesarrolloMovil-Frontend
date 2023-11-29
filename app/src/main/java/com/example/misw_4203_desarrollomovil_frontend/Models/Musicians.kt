@@ -1,4 +1,4 @@
-package com.example.misw_4203_desarrollomovil_frontend
+package com.example.misw_4203_desarrollomovil_frontend.Models
 
 data class Musicians(
     var id: Int,
@@ -18,7 +18,9 @@ data class Album(
     var genre: String,
     var recordLabel: String,
     var performerPrizes: ArrayList<PerformerPrize>
-)
+) {
+
+}
 
 data class PerformerPrize(
     var id: Int,
