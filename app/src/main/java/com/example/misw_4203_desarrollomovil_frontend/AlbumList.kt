@@ -11,5 +11,4 @@ data class AlbumList(
     var tracks: Array<Any>,
     var performers: Array<Any>,
     var comments : Array<Any>,
-
 )

@@ -87,6 +87,22 @@ open class AlbumsViewModel : ViewModel(){
         }
     }
 
+    fun addAlbumToMusician(album: String, musician: String) {
+        viewModelScope.launch {
+            val response = RetroficClient.webService.addAlbumToMusician(musician, album)
+            withContext(Dispatchers.Main) {
+                println("Codigo Add Album: ${response.code()}");
+                println("Codigo Add Album: $response");
+                if(response.code() == 200){
+                    println("Entro: $response")
+                } else {
+                    println("Error: ${response.code()}")
+                    val errorBody = response.errorBody()?.string()
+                    println("Error Details: $errorBody")
+                }
+            }
+        }
+    }
 
 
     private lateinit var errorTextView: TextView

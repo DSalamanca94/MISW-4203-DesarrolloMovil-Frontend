@@ -33,4 +33,10 @@ interface WebService {
         @Path("id") musicianId: String
     ): Response<List<Album>>
 
+    @POST("/musicians/{musicianId}/albums/{albumId}")
+    suspend fun addAlbumToMusician(
+        @Path("musicianId") musicianId: String,
+        @Path("albumId") albumId: String
+    ): Response<AlbumDtoResponse>
+
 }

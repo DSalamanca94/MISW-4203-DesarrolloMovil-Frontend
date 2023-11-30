@@ -39,9 +39,10 @@ fun AppNavigation(viewModel: MusiciansViewModel, viewModelA: AlbumsViewModel) {
             val musicianId = backStackEntry.arguments?.getInt("musicianId")
             viewModel.getMusiciansById(musicianId.toString());
             viewModel.getAlbumsbyMusicianId(musicianId.toString());
+            viewModelA.getAlbumes()
 
             if (musicianId != null) {
-                DetalleArtistas(navController, viewModel.detalleMusician, viewModel.listaAlbums);
+                DetalleArtistas(navController, viewModel.detalleMusician, viewModel.listaAlbums, viewModelA._listaAlbumes, viewModelA = viewModelA);
             }
         }
 
