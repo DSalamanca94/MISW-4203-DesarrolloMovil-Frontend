@@ -1,4 +1,4 @@
-package com.example.misw_4203_desarrollomovil_frontend.screens
+package com.example.misw_4203_desarrollomovil_frontend.Views
 
 import android.annotation.SuppressLint
 import androidx.compose.foundation.layout.Column
@@ -24,7 +24,6 @@ import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.produceState
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
@@ -32,8 +31,8 @@ import androidx.compose.ui.text.input.ImeAction
 
 import  androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-import com.example.misw_4203_desarrollomovil_frontend.AlbumDto
-import com.example.misw_4203_desarrollomovil_frontend.AlbumsViewModel
+import com.example.misw_4203_desarrollomovil_frontend.Models.AlbumDto
+import com.example.misw_4203_desarrollomovil_frontend.ViewModels.AlbumsViewModel
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @OptIn(ExperimentalMaterial3Api::class)

@@ -1,5 +1,6 @@
-package com.example.misw_4203_desarrollomovil_frontend
+package com.example.misw_4203_desarrollomovil_frontend.ViewModels
 
+import com.example.misw_4203_desarrollomovil_frontend.Constantes
 import com.google.gson.GsonBuilder
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory

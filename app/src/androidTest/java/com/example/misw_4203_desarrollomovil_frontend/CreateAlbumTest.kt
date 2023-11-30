@@ -6,7 +6,9 @@ import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.navigation.testing.TestNavHostController
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
-import com.example.misw_4203_desarrollomovil_frontend.screens.Formulario
+import com.example.misw_4203_desarrollomovil_frontend.Views.Formulario
+import com.example.misw_4203_desarrollomovil_frontend.Models.AlbumDto
+import com.example.misw_4203_desarrollomovil_frontend.ViewModels.AlbumsViewModel
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith

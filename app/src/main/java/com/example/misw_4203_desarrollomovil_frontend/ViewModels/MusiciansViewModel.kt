@@ -1,4 +1,4 @@
-package com.example.misw_4203_desarrollomovil_frontend
+package com.example.misw_4203_desarrollomovil_frontend.ViewModels
 
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -7,6 +7,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.misw_4203_desarrollomovil_frontend.Models.Musicians
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -22,14 +23,18 @@ class MusiciansViewModel : ViewModel() {
     private var _listaMusicians = MutableLiveData<Result<List<Musicians>>>()
     val listaMusicians: LiveData<Result<List<Musicians>>> get() = _listaMusicians
 
-    private var _detalleMusician by mutableStateOf<Result<Musicians>>(Result.Success(Musicians(
-        id = 0,
-        name = "",
-        image = "",
-        description = "",
-        birthDate = "",
-        albums = emptyArray()
-    )))
+    private var _detalleMusician by mutableStateOf<Result<Musicians>>(
+        Result.Success(
+            Musicians(
+                id = 0,
+                name = "",
+                image = "",
+                description = "",
+                birthDate = "",
+                albums = emptyArray()
+            )
+        )
+    )
     val detalleMusician: Result<Musicians> get() = _detalleMusician
 
     // Function to fetch musicians from the API
@@ -74,7 +79,8 @@ class MusiciansViewModel : ViewModel() {
                         )
                     _detalleMusician = Result.Success(musician)
                 } else {
-                    _detalleMusician = Result.Error(Exception("Error in the request: ${response.code()}"))
+                    _detalleMusician =
+                        Result.Error(Exception("Error in the request: ${response.code()}"))
                 }
             } catch (e: Exception) {
                 _detalleMusician = Result.Error(e)

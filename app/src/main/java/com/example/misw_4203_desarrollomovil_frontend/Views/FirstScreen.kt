@@ -1,4 +1,4 @@
-package com.example.misw_4203_desarrollomovil_frontend.screens
+package com.example.misw_4203_desarrollomovil_frontend.Views
 
 import androidx.compose.material3.Button
 import androidx.compose.foundation.layout.Arrangement
@@ -12,7 +12,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-import com.example.misw_4203_desarrollomovil_frontend.navigation.AppScreens
+import com.example.misw_4203_desarrollomovil_frontend.ViewModels.navigation.AppScreens
 
 
 @Composable

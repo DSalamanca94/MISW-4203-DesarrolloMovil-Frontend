@@ -1,4 +1,4 @@
-package com.example.misw_4203_desarrollomovil_frontend.screens
+package com.example.misw_4203_desarrollomovil_frontend.Views
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -18,22 +18,22 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import coil.compose.AsyncImage
-import com.example.misw_4203_desarrollomovil_frontend.AlbumDtoResponse
-import com.example.misw_4203_desarrollomovil_frontend.AlbumList
-import com.example.misw_4203_desarrollomovil_frontend.navigation.AppScreens
+import com.example.misw_4203_desarrollomovil_frontend.Models.Musicians
+import com.example.misw_4203_desarrollomovil_frontend.ViewModels.navigation.AppScreens
 
 @Composable
-fun CardAlbum(
-    funName: (String) -> Unit,
-    album: AlbumList,
+fun CardMusician(
+    funNombre: (String) -> Unit,
+    musician: Musicians,
     navController: NavController
 ) {
     Box(
         modifier = Modifier
             .fillMaxWidth()
             .padding(vertical = 8.dp)
-            .clickable { album.id?.let { id -> navController.navigate("${AppScreens.SixthScreen}/$id") } }
+            .clickable { musician.id?.let { id -> navController.navigate("${AppScreens.ThirdScreen}/$id") } }
         ,
+        //elevation = CardDefaults.cardElevation(8.dp)
     ) {
         Column(
             modifier = Modifier
@@ -42,14 +42,13 @@ fun CardAlbum(
             Arrangement.Center
         ) {
             AsyncImage(
-                model = album.cover,
+                model = musician.image,
                 contentDescription = null,
                 contentScale = ContentScale.Crop,
-                modifier = Modifier.size(200.dp).padding(10.dp).clip(RoundedCornerShape(16.dp)).align(
-                    Alignment.CenterHorizontally),
+                modifier = Modifier.size(200.dp).padding(10.dp).clip(RoundedCornerShape(16.dp)).align(Alignment.CenterHorizontally),
             )
             Text(
-                text = album.name,
+                text = musician.name,
                 modifier = Modifier.align(Alignment.CenterHorizontally)
             )
         }

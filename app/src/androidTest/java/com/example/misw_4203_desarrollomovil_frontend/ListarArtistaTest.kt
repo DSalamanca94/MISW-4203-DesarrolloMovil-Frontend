@@ -1,12 +1,15 @@
 package com.example.misw_4203_desarrollomovil_frontend
 
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onNodeWithContentDescription
 import androidx.compose.ui.test.onNodeWithText
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.navigation.NavController
-import com.example.misw_4203_desarrollomovil_frontend.screens.ListadoArtistas
+import com.example.misw_4203_desarrollomovil_frontend.Views.ListadoArtistas
+import com.example.misw_4203_desarrollomovil_frontend.Models.Musicians
+import com.example.misw_4203_desarrollomovil_frontend.ViewModels.Result
 
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -49,11 +52,16 @@ class ListarArtistaTest {
     @get:Rule
     val rule = createComposeRule()
 
+    val result = Result.Success(musiciansArray)
     @Before
     fun setupAppNavHost() {
         rule.setContent {
-            var navController = NavController(LocalContext.current)
-            ListadoArtistas(navController = navController, listaMusicians = musiciansArray)
+            val navController = NavController(LocalContext.current)
+            ListadoArtistas(
+                navController = navController,
+                listaMusicians = result,
+                modifier = Modifier // Puedes pasar un Modifier vacío o modificarlo según tus necesidades
+            )
         }
     }
 

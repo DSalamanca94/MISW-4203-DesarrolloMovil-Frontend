@@ -1,4 +1,4 @@
-package com.example.misw_4203_desarrollomovil_frontend.screens
+package com.example.misw_4203_desarrollomovil_frontend.Views
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
@@ -25,8 +25,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.LiveData
 import androidx.navigation.NavController
-import com.example.misw_4203_desarrollomovil_frontend.Musicians
-import com.example.misw_4203_desarrollomovil_frontend.Result
+import com.example.misw_4203_desarrollomovil_frontend.Models.Musicians
+import com.example.misw_4203_desarrollomovil_frontend.ViewModels.Result
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
