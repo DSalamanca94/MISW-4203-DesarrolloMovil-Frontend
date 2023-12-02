@@ -7,11 +7,12 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.misw_4203_desarrollomovil_frontend.Models.Album
 import com.example.misw_4203_desarrollomovil_frontend.Models.Musicians
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import java.lang.Exception
+import kotlin.Exception
 
 // Sealed class to represent success or error in network request
 sealed class Result<out T> {
@@ -20,8 +21,11 @@ sealed class Result<out T> {
 }
 
 class MusiciansViewModel : ViewModel() {
-    private var _listaMusicians = MutableLiveData<Result<List<Musicians>>>()
-    val listaMusicians: LiveData<Result<List<Musicians>>> get() = _listaMusicians
+
+    private var _listaMusicians = MutableLiveData<Result<List<Musicians>>>();
+    private var _listaAlbums by mutableStateOf<Result<List<Album>>>(Result.Success(emptyList()));
+    val listaMusicians: LiveData<Result<List<Musicians>>> get() = _listaMusicians;
+    val listaAlbums: Result<List<Album>> get() = _listaAlbums;
 
     private var _detalleMusician by mutableStateOf<Result<Musicians>>(
         Result.Success(
@@ -84,6 +88,34 @@ class MusiciansViewModel : ViewModel() {
                 }
             } catch (e: Exception) {
                 _detalleMusician = Result.Error(e)
+            }
+        }
+    }
+
+    // Function to fetch albums by musician ID from API
+    fun getAlbumsbyMusicianId(musicianId: String) {
+        viewModelScope.launch {
+            try {
+                val response = withContext(Dispatchers.IO) {
+                    RetroficClient.webService.getAlbumsbyMusicianId(musicianId);
+                }
+
+                if (response.isSuccessful) {
+                    val albumsList = response.body()?: emptyList<Any>();
+                    _listaAlbums = Result.Success(albumsList as List<Album>);
+
+                    println("_listaAlbums: ${_listaAlbums}");
+
+                    // Print Result
+                    albumsList.forEach { album ->
+                        println("Album ID: ${album.id}, Name: ${album.name}")
+                    }
+                } else {
+                    _listaAlbums = Result.Error(Exception("Error in the request: ${response.code()}"));
+                }
+
+            } catch (e: Exception) {
+                _listaAlbums = Result.Error(e);
             }
         }
     }

@@ -1,4 +1,5 @@
 package com.example.misw_4203_desarrollomovil_frontend.ViewModels
+import com.example.misw_4203_desarrollomovil_frontend.Models.Album
 import com.example.misw_4203_desarrollomovil_frontend.Models.AlbumDto
 import com.example.misw_4203_desarrollomovil_frontend.Models.AlbumDtoResponse
 import com.example.misw_4203_desarrollomovil_frontend.Models.AlbumList
@@ -44,5 +45,14 @@ interface WebService {
         @Body comment: Comment
     ): Response<Comment>
 
+    @GET("/musicians/{id}/albums")
+    suspend fun getAlbumsbyMusicianId(
+        @Path("id") musicianId: String
+    ): Response<List<Album>>
+    @POST("/musicians/{musicianId}/albums/{albumId}")
+    suspend fun addAlbumToMusician(
+        @Path("musicianId") musicianId: String,
+        @Path("albumId") albumId: String
+    ): Response<AlbumDtoResponse>
 
 }
