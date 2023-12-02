@@ -9,6 +9,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.misw_4203_desarrollomovil_frontend.Models.AlbumDto
 import com.example.misw_4203_desarrollomovil_frontend.Models.AlbumList
+import com.example.misw_4203_desarrollomovil_frontend.Models.Collector
 import com.example.misw_4203_desarrollomovil_frontend.Models.Comment
 import com.example.misw_4203_desarrollomovil_frontend.Models.TrackList
 import kotlinx.coroutines.launch
@@ -19,6 +20,7 @@ import retrofit2.HttpException
 open class AlbumsViewModel : ViewModel(){
     var _listaAlbumes: ArrayList<AlbumList> by mutableStateOf(arrayListOf())
     var _listaTracks: ArrayList<TrackList> by mutableStateOf(arrayListOf())
+    var _listaCollectors: ArrayList<Collector> by mutableStateOf(arrayListOf())
 
     var _detalleAlbum: AlbumList = AlbumList(
         id = 0,
@@ -117,22 +119,39 @@ open class AlbumsViewModel : ViewModel(){
         }
     }
 
-
-    suspend fun addCommentSuspend(albumId: String, comment: Comment) {
-        try {
-            val response = RetroficClient.webService.addAComment(albumId, comment)
-            if (response.isSuccessful) {
-
-            } else {
-                val errorBody = response.errorBody()?.string()
-                println("Error: ${response.code()}\n$errorBody")
+    fun addComment(albumId: String, comment: Comment) {
+        viewModelScope.launch {
+            val response = RetroficClient.webService.addComment(albumId, comment)
+            withContext(Dispatchers.Main) {
+                println("Codigo: $response.code()")
+                if(response.code() == 200){
+                    println("Entro: $response.code()")
+                } else {
+                    println("Error: ${response.code()}")
+                    val errorBody = response.errorBody()?.string()
+                    println("Error Details: $errorBody")
+                }
             }
-        } catch (e: HttpException) {
-            println("Excepción HTTP: ${e.message}")
-        } catch (e: Exception) {
-            println("Excepción: ${e.message}")
         }
     }
+
+    suspend fun getCollectors(): List<Collector> {
+        try {
+            val response = RetroficClient.webService.getCollectors()
+
+            if (response.isSuccessful) {
+                val collectors = response.body() as? List<Collector>
+                collectors?.let {
+                    return it
+                } ?: throw Exception("Lista vacía")
+            } else {
+                throw Exception("Error: ${response.code()}")
+            }
+        } catch (e: Exception) {
+            throw Exception("Error: ${e.message}")
+        }
+    }
+
 
     fun addAlbumToMusician(album: String, musician: String) {
         viewModelScope.launch {

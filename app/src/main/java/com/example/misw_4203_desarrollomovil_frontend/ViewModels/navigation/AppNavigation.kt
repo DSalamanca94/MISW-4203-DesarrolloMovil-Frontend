@@ -87,20 +87,18 @@ fun AppNavigation(viewModel: MusiciansViewModel, viewModelA: AlbumsViewModel) {
             }
         }
 
+
         composable(
-            route = "${AppScreens.EigthScreen.route}/{albumId}",
-            arguments = listOf(navArgument("albumId") { type = NavType.StringType })
+            route = "${AppScreens.EightScreen}/{albumId}",
+            arguments = listOf(navArgument("albumId") { type = NavType.IntType })
         ) { backStackEntry ->
-            val albumId = backStackEntry.arguments?.getString("albumId")
-            albumId?.let {
-                CommentForm(
-                    navController = navController,
-                    viewModelA = viewModelA,
-                    collectors = listOf(), 
-                    albumId = it
-                )
-            } ?: navController.popBackStack()
+            val albumId = backStackEntry.arguments?.getInt("albumId")
+
+            albumId?.let { id ->
+                CommentForm(navController = navController, viewModelA = viewModelA, albumId = id)
+            }
         }
+
     }
 }
 

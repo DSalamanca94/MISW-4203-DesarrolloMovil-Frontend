@@ -5,12 +5,17 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Add
 import androidx.compose.material3.Button
+import androidx.compose.material3.FloatingActionButton
+import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -72,14 +77,14 @@ fun CardAlbum(
                 Button(
                     onClick = {
                         album.id?.let { id ->
-                            navController.navigate("${AppScreens.EigthScreen}/$id")
+                            navController.navigate("${AppScreens.EightScreen}/$id")
                         }
                     },
-                    modifier = Modifier.padding(top = 16.dp, start = 4.dp)
-                        .align(Alignment.Top)
+                    modifier = Modifier.padding(top = 16.dp, start = 8.dp)
                 ) {
-                    Text("Comenta")
+                    Text("Crear comentario")
                 }
+
             }
         }
     }
