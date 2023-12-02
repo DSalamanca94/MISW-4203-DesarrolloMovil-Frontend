@@ -32,47 +32,72 @@ open class AlbumsViewModel : ViewModel(){
         performers= emptyArray(),
         comments = emptyArray())
 
+    //Cache
+    private var albumsCache: ArrayList<AlbumList>? = null;
+    private var albumIdCache: AlbumList? = null;
+    private var tracksCache: ArrayList<TrackList>? = null;
+
     fun getAlbumes() {
         viewModelScope.launch {
-            try {
-                val response = RetroficClient.webService.getAlbumes()
+            // Verificar si la respuesta está en caché
+            if (albumsCache != null) {
+                _listaAlbumes = albumsCache!!
+            } else {
+                try {
+                    // La respuesta no está en caché, realizar la solicitud a la red
+                    val response = RetroficClient.webService.getAlbumes()
 
-                if (response.isSuccessful) {
-                    val albumes = response.body() as? ArrayList<AlbumList>
-                    albumes?.let {
-                        withContext(Dispatchers.Main) {
-                            _listaAlbumes = it
-                        }
-                    } ?: run {
-                        showErrorInView("Error: Lista vacía")
+                    if (response.isSuccessful) {
+                        val albumes = response.body() ?: emptyList<AlbumList>()
+                        _listaAlbumes = ArrayList(albumes)
+
+                        // Almacenar el resultado en caché
+                        albumsCache = ArrayList(albumes)
+                    } else {
+                        // Manejar errores de respuesta no exitosa (códigos HTTP diferentes a 200)
+                        showErrorInView("Error: ${response.code()}")
                     }
-                } else {
-                    // Manejar errores de respuesta no exitosa (códigos HTTP diferentes a 200)
-                    showErrorInView("Error: ${response.code()}")
+                } catch (e: Exception) {
+                    // Manejar errores de red u otros errores
+                    showErrorInView("Error: ${e.message}")
                 }
-            } catch (e: Exception) {
-                showErrorInView("Error: ${e.message}")
             }
         }
     }
 
     fun GetAlbumbyId(Album_Id: String) {
         viewModelScope.launch {
-            val response = RetroficClient.webService.getAlbumbyId(Album_Id)
-            withContext(Dispatchers.Main){
-                _detalleAlbum = response.body()?: AlbumList(
-                    id = 0,
-                    name ="",
-                    cover = "",
-                    releaseDate = "",
-                    description = "",
-                    genre= "",
-                    recordLabel= "",
-                    tracks = emptyArray(),
-                    performers= emptyArray(),
-                    comments = emptyArray()
-                )
+            // Verificar si el álbum está en caché
+            if (albumIdCache != null) {
+                _detalleAlbum = albumIdCache!!
+            } else {
+                try {
+                    val response = RetroficClient.webService.getAlbumbyId(Album_Id);
 
+                    if (response.isSuccessful) {
+                        // Álbum encontrado en la red, asignar a _detalleAlbum y almacenar en caché
+                        val album = response.body() ?: AlbumList(
+                            id = 0,
+                            name = "",
+                            cover = "",
+                            releaseDate = "",
+                            description = "",
+                            genre = "",
+                            recordLabel = "",
+                            tracks = emptyArray(),
+                            performers = emptyArray(),
+                            comments = emptyArray()
+                        );
+                        _detalleAlbum = album;
+                        albumIdCache = album;
+                    } else {
+                        // Manejar errores de respuesta no exitosa (códigos HTTP diferentes a 200)
+                        showErrorInView("Error: ${response.code()}");
+                    }
+                } catch (e: Exception) {
+                    // Manejar errores de red u otros errores
+                    showErrorInView("Error: ${e.message}");
+                }
             }
         }
     }
@@ -95,24 +120,30 @@ open class AlbumsViewModel : ViewModel(){
 
     fun getTracks(Album_Id: String) {
         viewModelScope.launch {
-            try {
-                val response = RetroficClient.webService.getTracks(Album_Id)
+            // Verificar si las pistas están en caché
+            if (tracksCache != null) {
+                _listaTracks = tracksCache!!;
+            } else {
+                try {
+                    val response = RetroficClient.webService.getTracks(Album_Id);
 
-                if (response.isSuccessful) {
-                    val tracks = response.body() as? ArrayList<TrackList>
-                    tracks?.let {
-                        withContext(Dispatchers.Main) {
-                            _listaTracks = it
+                    if (response.isSuccessful) {
+                        // Pistas encontradas en la red, asignar a _listaTracks y almacenar en caché
+                        val tracks = response.body() as? ArrayList<TrackList>;
+                        tracks?.let {
+                            _listaTracks = it;
+                            tracksCache = ArrayList(it);
+                        } ?: run {
+                            showErrorInView("Error: Lista de pistas vacía");
                         }
-                    } ?: run {
-                        showErrorInView("Error: Lista vacía")
+                    } else {
+                        // Manejar errores de respuesta no exitosa (códigos HTTP diferentes a 200)
+                        showErrorInView("Error: ${response.code()}");
                     }
-                } else {
-                    // Manejar errores de respuesta no exitosa (códigos HTTP diferentes a 200)
-                    showErrorInView("Error: ${response.code()}")
+                } catch (e: Exception) {
+                    // Manejar errores de red u otros errores
+                    showErrorInView("Error: ${e.message}");
                 }
-            } catch (e: Exception) {
-                showErrorInView("Error: ${e.message}")
             }
         }
     }
@@ -156,5 +187,4 @@ open class AlbumsViewModel : ViewModel(){
         errorTextView.text = message
         errorTextView.visibility = View.VISIBLE
     }
-
 }
