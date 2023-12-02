@@ -3,14 +3,10 @@ package com.example.misw_4203_desarrollomovil_frontend
 
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.test.junit4.createComposeRule
-import androidx.compose.ui.test.onNodeWithContentDescription
 import androidx.compose.ui.test.onNodeWithText
-import androidx.compose.ui.test.performClick
 import androidx.test.ext.junit.runners.AndroidJUnit4
-import com.example.misw_4203_desarrollomovil_frontend.screens.HomeScreen
+import com.example.misw_4203_desarrollomovil_frontend.Views.HomeScreen
 import androidx.navigation.NavController
-import androidx.navigation.compose.ComposeNavigator
-import com.example.misw_4203_desarrollomovil_frontend.screens.DetalleArtistas
 
 import org.junit.Test
 import org.junit.runner.RunWith

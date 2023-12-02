@@ -1,13 +1,18 @@
 package com.example.misw_4203_desarrollomovil_frontend
 
 
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onNodeWithContentDescription
 import androidx.compose.ui.test.onNodeWithText
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.navigation.NavController
-import com.example.misw_4203_desarrollomovil_frontend.screens.DetalleArtistas
+import com.example.misw_4203_desarrollomovil_frontend.Views.DetalleArtistas
+import com.example.misw_4203_desarrollomovil_frontend.Models.Musicians
+import com.example.misw_4203_desarrollomovil_frontend.ViewModels.Result
+import com.example.misw_4203_desarrollomovil_frontend.Views.DetalleArtistasContent
 
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -23,30 +28,30 @@ import org.junit.Rule
  */
 @RunWith(AndroidJUnit4::class)
 
-class DetalleArtistaTest {
-
-    val musician = Musicians(100, "Queen", "https://pm1.narvii.com/6724/a8b29909071e9d08517b40c748b6689649372852v2_hq.jpg","Descripción del músico", "01-01-2023",
-        arrayOf(1))
+class DetalleArtistasContentTest {
 
     @get:Rule
-    val rule = createComposeRule()
-    lateinit var navController: NavController
-
-    @Before
-    fun setupAppNavHost() {
-        rule.setContent {
-            navController = NavController(LocalContext.current)
-            DetalleArtistas(navController = navController, musician = musician )
-            //HomeScreen(navController = navController)
-         }
-    }
+    val composeTestRule = createComposeRule()
 
     @Test
-    fun validaInfoMostrada() {
-        Thread.sleep(5000)
-        rule.onNodeWithText(musician.name).assertExists()
-        rule.onNodeWithText(musician.description).assertExists()
-        rule.onNodeWithContentDescription(musician.image)
+    fun testDetalleArtistasContent() {
+        val musician = Musicians(
+            100,
+            "Queen",
+            "https://pm1.narvii.com/6724/a8b29909071e9d08517b40c748b6689649372852v2_hq.jpg",
+            "Descripción del músico",
+            "01-01-2023",
+            arrayOf(1)
+        )
+        val result = Result.Success(musician)
 
+        composeTestRule.setContent {
+            DetalleArtistasContent(musician = result, modifier = Modifier)
+        }
+
+        // Verificar la presencia y contenido de los elementos en el formulario
+        composeTestRule.onNodeWithText("Description").assertIsDisplayed()
+        composeTestRule.onNodeWithText("Descripción del músico").assertIsDisplayed()
+        // Puedes agregar más verificaciones según los elementos y su contenido esperado
     }
 }

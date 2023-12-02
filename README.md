@@ -8,6 +8,7 @@ Antes de comenzar, asegúrate de que tienes lo siguiente instalado:
 
 - Android Studio
 - Un dispositivo Android o un emulador de Android configurado en Android Studio
+- Antes de revisar porfavor asegurarse que el servidor backend esta despierto, para eso ir a este link y esperar que devuelva data [Backend](https://back-vynils-grupo-18.onrender.com/musicians)
 
 ## Pasos para ejecutar la aplicación
 Sigue estos pasos para ejecutar la aplicación en Android Studio:
