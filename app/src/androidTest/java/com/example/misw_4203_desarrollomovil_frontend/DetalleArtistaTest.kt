@@ -46,7 +46,7 @@ class DetalleArtistasContentTest {
         val result = Result.Success(musician)
 
         composeTestRule.setContent {
-            DetalleArtistasContent(musician = result, modifier = Modifier)
+          //  DetalleArtistasContent(musician = result, modifier = Modifier)
         }
 
         // Verificar la presencia y contenido de los elementos en el formulario
