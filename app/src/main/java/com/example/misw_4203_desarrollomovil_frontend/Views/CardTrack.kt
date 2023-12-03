@@ -27,7 +27,6 @@ fun CardTrack(
          modifier = Modifier
             .fillMaxWidth()
             .padding(vertical = 8.dp)
-            .clickable { track.id?.let { id -> navController.navigate("${AppScreens.EigthScreen}/$id") } },
     ) {
         Column(
             modifier = Modifier

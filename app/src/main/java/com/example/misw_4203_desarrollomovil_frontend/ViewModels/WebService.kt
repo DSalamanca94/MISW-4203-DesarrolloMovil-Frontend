@@ -1,7 +1,9 @@
 package com.example.misw_4203_desarrollomovil_frontend.ViewModels
+import com.example.misw_4203_desarrollomovil_frontend.Models.Album
 import com.example.misw_4203_desarrollomovil_frontend.Models.AlbumDto
 import com.example.misw_4203_desarrollomovil_frontend.Models.AlbumDtoResponse
 import com.example.misw_4203_desarrollomovil_frontend.Models.AlbumList
+import com.example.misw_4203_desarrollomovil_frontend.Models.Collector
 import com.example.misw_4203_desarrollomovil_frontend.Models.Comment
 import com.example.misw_4203_desarrollomovil_frontend.Models.Musicians
 import com.example.misw_4203_desarrollomovil_frontend.Models.TrackList
@@ -39,10 +41,22 @@ interface WebService {
     ): Response<List<TrackList>>
 
     @POST("/albums/{id}/comments")
-    suspend fun addAComment(
+    suspend fun addComment(
         @Path("id") albumId: String,
         @Body comment: Comment
     ): Response<Comment>
 
+    @GET("/musicians/{id}/albums")
+    suspend fun getAlbumsbyMusicianId(
+        @Path("id") musicianId: String
+    ): Response<List<Album>>
+    @POST("/musicians/{musicianId}/albums/{albumId}")
+    suspend fun addAlbumToMusician(
+        @Path("musicianId") musicianId: String,
+        @Path("albumId") albumId: String
+    ): Response<AlbumDtoResponse>
+
+    @GET("/collectors")
+    suspend fun getCollectors(): Response<List<Collector>>
 
 }

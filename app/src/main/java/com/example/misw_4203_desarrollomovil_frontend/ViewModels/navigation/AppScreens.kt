@@ -8,5 +8,5 @@ sealed class AppScreens(val route: String) {
     object FifthScreen: AppScreens("fifth_screen");
     object SixthScreen: AppScreens("sixth_screen");
     object SeventhScreen: AppScreens("seventh_screen");
-    object EigthScreen: AppScreens("eigth_screen");
+    object EightScreen: AppScreens("eight_screen");
 }

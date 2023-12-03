@@ -39,10 +39,12 @@ fun AppNavigation(viewModel: MusiciansViewModel, viewModelA: AlbumsViewModel) {
             arguments = listOf(navArgument("musicianId") { type = NavType.IntType })
         ) { backStackEntry ->
             val musicianId = backStackEntry.arguments?.getInt("musicianId")
-            viewModel.getMusiciansById(musicianId.toString())
+            viewModel.getMusiciansById(musicianId.toString());
+            viewModel.getAlbumsbyMusicianId(musicianId.toString());
+            viewModelA.getAlbumes()
 
             if (musicianId != null) {
-                DetalleArtistas(navController, viewModel.detalleMusician)
+                DetalleArtistas(navController, viewModel.detalleMusician, viewModel.listaAlbums, viewModelA._listaAlbumes, viewModelA = viewModelA);
             }
         }
 
@@ -85,20 +87,18 @@ fun AppNavigation(viewModel: MusiciansViewModel, viewModelA: AlbumsViewModel) {
             }
         }
 
+
         composable(
-            route = "${AppScreens.EigthScreen.route}/{albumId}",
-            arguments = listOf(navArgument("albumId") { type = NavType.StringType })
+            route = "${AppScreens.EightScreen}/{albumId}",
+            arguments = listOf(navArgument("albumId") { type = NavType.IntType })
         ) { backStackEntry ->
-            val albumId = backStackEntry.arguments?.getString("albumId")
-            albumId?.let {
-                CommentForm(
-                    navController = navController,
-                    viewModelA = viewModelA,
-                    collectors = listOf(), 
-                    albumId = it
-                )
-            } ?: navController.popBackStack()
+            val albumId = backStackEntry.arguments?.getInt("albumId")
+
+            albumId?.let { id ->
+                CommentForm(navController = navController, viewModelA = viewModelA, albumId = id)
+            }
         }
+
     }
 }
 
